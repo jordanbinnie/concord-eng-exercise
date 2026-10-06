@@ -8,11 +8,14 @@
     "build": "tsc && vite build",
     "check": "ultracite check",
     "fix": "ultracite fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "bun test",
+    "validate:employees": "bun scripts/validate-employees.ts"
   },
   "dependencies": {
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",

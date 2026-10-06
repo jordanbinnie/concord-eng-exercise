@@ -127,3 +127,18 @@ prioritising, sketching a data model, directing AI) doesn't need fluent stack co
 and AI is available for the part that does — so don't worry if React/TS isn't your
 daily driver. Linting/formatting is Biome via ultracite (`biome.jsonc`); TypeScript
 runs in `Bundler` mode with an `@/` → `src/` alias.
+
+## Validate the employee CSV
+
+Run the same normalization and Zod validation used by the dashboard:
+
+```bash
+bun run validate:employees
+```
+
+The script calls `loadEmployees` with a local CSV reader and logs the returned
+object using `console.log`. The source CSV is never modified.
+
+The loader returns `{ success: true, data }` or
+`{ success: false, error: { code, message, sourceRow? } }`. Individual records
+contain their original values, normalized values, `issues` and `needsReview`.

@@ -4,7 +4,7 @@ body {
 }
 
 .page {
-  max-width: 800px;
+  max-width: 1100px;
   padding: 32px 24px;
   margin: 0 auto;
   font-family: system-ui, sans-serif;
@@ -69,4 +69,244 @@ td {
 th {
   color: #444;
   border-bottom: 2px solid #ddd;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 12px;
+}
+.review-help {
+  font-size: 14px;
+  color: #555;
+}
+td {
+  vertical-align: top;
+}
+.review-clear {
+  color: #375b46;
+  white-space: nowrap;
+}
+.review-issues {
+  padding-left: 20px;
+}
+.review-issues li {
+  margin-bottom: 16px;
+}
+.review-reason {
+  margin-bottom: 8px;
+}
+.review-field {
+  margin-bottom: 8px;
+}
+.review-field dt {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.review-field dd {
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+}
+.source-value {
+  white-space: pre-wrap;
+}
+.review-related a {
+  display: inline-block;
+  margin-right: 8px;
+  color: #175cd3;
+}
+.unresolved-date {
+  display: block;
+  margin-top: 4px;
+  color: #7a4300;
+}
+.load-error {
+  padding: 16px;
+  color: #912018;
+  border: 1px solid #b42318;
+  border-radius: 6px;
+}
+tr:target {
+  background: #fff7e6;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.company-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 340px;
+  margin-bottom: 24px;
+}
+.company-filter label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.company-filter select {
+  padding: 10px 12px;
+  font: inherit;
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+}
+.company-filter select:focus-visible {
+  outline: 2px solid #175cd3;
+  outline-offset: 2px;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+.follow-up {
+  display: block;
+  width: fit-content;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #754000;
+  background: #fff0d4;
+  border-radius: 4px;
+}
+.review-related span {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.details-button,
+.employee-popover button {
+  padding: 7px 10px;
+  font: inherit;
+  color: #175cd3;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+}
+.details-button {
+  white-space: nowrap;
+}
+.details-button:focus-visible,
+.employee-popover button:focus-visible {
+  outline: 2px solid #175cd3;
+  outline-offset: 2px;
+}
+.employee-popover {
+  position: fixed;
+  top: 10vh;
+  right: 24px;
+  z-index: 10;
+  box-sizing: border-box;
+  width: min(520px, calc(100vw - 32px));
+  max-height: 80dvh;
+  padding: 24px;
+  overflow-y: auto;
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
+}
+.employee-panel-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.employee-panel-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+.employee-panel-header p {
+  margin: 6px 0 16px;
+}
+.employee-fields {
+  margin: 24px 0 0;
+}
+.employee-field {
+  padding: 14px 0;
+  border-top: 1px solid #eee;
+}
+.employee-field dt {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+}
+.employee-field dd {
+  min-height: 20px;
+  margin: 6px 0 0;
+  overflow-wrap: anywhere;
+}
+.original-field {
+  display: block;
+  margin-top: 6px;
+  color: #555;
+}
+.field-issue {
+  padding: 8px;
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #754000;
+  background: #fff7e6;
+}
+
+.review-button {
+  padding: 7px 10px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #b42318;
+  border: 1px solid #b42318;
+  border-radius: 5px;
+}
+.review-button:hover {
+  background: #912018;
+}
+.review-button:focus-visible {
+  outline: 2px solid #175cd3;
+  outline-offset: 3px;
+}
+
+.employee-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filter-field {
+  display: flex;
+  flex: 1 1 220px;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 340px;
+}
+
+.filter-field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.filter-field select,
+.filter-field input {
+  padding: 10px 12px;
+  font: inherit;
+  color: #1a1a1a;
+  background: #fff;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+}
+
+.filter-field select:focus-visible,
+.filter-field input:focus-visible {
+  outline: 2px solid #175cd3;
+  outline-offset: 2px;
 }
