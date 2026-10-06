@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["server/**/*.ts", "drizzle.config.ts", "src/lib/trpc.ts"]
+}
