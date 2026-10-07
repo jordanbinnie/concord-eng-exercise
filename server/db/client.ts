@@ -3,7 +3,9 @@ import postgres from "postgres";
 import {
   beneficiaryProfiles,
   caseAdvisors,
+  caseEvents,
   cases,
+  caseTasks,
   companies,
   information,
   jurisdictions,
@@ -14,6 +16,8 @@ import {
 const schema = {
   beneficiaryProfiles,
   caseAdvisors,
+  caseEvents,
+  caseTasks,
   cases,
   companies,
   information,
