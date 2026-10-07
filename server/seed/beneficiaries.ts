@@ -1,5 +1,4 @@
 import type { DemoVisa } from "./data";
-import type { DemoScenario } from "./scenarios";
 
 export type DemoBeneficiary = {
   user: number;
@@ -11,13 +10,12 @@ export type DemoBeneficiary = {
   department: string;
   workLocation: string;
   visa: DemoVisa;
-  scenario: DemoScenario;
   advisors?: number[];
 };
 
-// Each fictional person has one explicit case; nationality is sample data, never inferred from names.
+// Fictional employee profiles. The case field identifies their original case; renewals are separate records.
 // Work locations are destinations. Canadian ICT examples represent transfers from an overseas office.
-// Global Talent examples represent experienced leaders in digital technology or research.
+// Proposed routes do not establish eligibility; no assessment result is inferred from a job title.
 export const demoBeneficiaries: DemoBeneficiary[] = [
   {
     user: 2,
@@ -29,7 +27,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "New York, United States",
     visa: "h1b",
-    scenario: "rfe",
   },
   {
     user: 5,
@@ -41,7 +38,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Data & Analytics",
     workLocation: "Auckland, New Zealand",
     visa: "aewv",
-    scenario: "filed",
   },
   {
     user: 10,
@@ -53,7 +49,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Seattle, United States",
     visa: "h1b",
-    scenario: "approved",
   },
   {
     user: 11,
@@ -65,7 +60,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Product",
     workLocation: "London, United Kingdom",
     visa: "globalTalent",
-    scenario: "preparation",
   },
   {
     user: 12,
@@ -77,7 +71,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Data & Analytics",
     workLocation: "Sydney, Australia",
     visa: "skillsInDemand",
-    scenario: "filed",
   },
   {
     user: 13,
@@ -89,7 +82,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Sales",
     workLocation: "Toronto, Canada",
     visa: "intraCompany",
-    scenario: "assessment",
   },
   {
     user: 14,
@@ -101,7 +93,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Design",
     workLocation: "Wellington, New Zealand",
     visa: "aewv",
-    scenario: "approved",
   },
   {
     user: 15,
@@ -113,7 +104,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Boston, United States",
     visa: "h1b",
-    scenario: "rfe",
   },
   {
     user: 16,
@@ -125,7 +115,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Manchester, United Kingdom",
     visa: "skilledWorker",
-    scenario: "filed",
   },
   {
     user: 17,
@@ -137,7 +126,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Sales",
     workLocation: "Vancouver, Canada",
     visa: "intraCompany",
-    scenario: "assessment",
   },
   {
     user: 18,
@@ -149,7 +137,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Operations",
     workLocation: "Auckland, New Zealand",
     visa: "aewv",
-    scenario: "preparation",
   },
   {
     user: 19,
@@ -161,7 +148,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Melbourne, Australia",
     visa: "skillsInDemand",
-    scenario: "approved",
   },
   {
     user: 20,
@@ -173,7 +159,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Research",
     workLocation: "Cambridge, United Kingdom",
     visa: "globalTalent",
-    scenario: "filed",
   },
   {
     user: 21,
@@ -185,7 +170,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Customer Success",
     workLocation: "Wellington, New Zealand",
     visa: "aewv",
-    scenario: "assessment",
   },
   {
     user: 22,
@@ -197,7 +181,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Design",
     workLocation: "London, United Kingdom",
     visa: "skilledWorker",
-    scenario: "preparation",
   },
   {
     user: 23,
@@ -209,7 +192,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Austin, United States",
     visa: "h1b",
-    scenario: "filed",
   },
   {
     user: 24,
@@ -221,7 +203,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Finance",
     workLocation: "Sydney, Australia",
     visa: "skillsInDemand",
-    scenario: "approved",
   },
   {
     user: 25,
@@ -233,7 +214,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "San Francisco, United States",
     visa: "h1b",
-    scenario: "staleRfe",
   },
   {
     user: 26,
@@ -245,7 +225,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "People",
     workLocation: "Auckland, New Zealand",
     visa: "aewv",
-    scenario: "incompleteProfile",
   },
   {
     user: 27,
@@ -257,7 +236,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Birmingham, United Kingdom",
     visa: "skilledWorker",
-    scenario: "preparation",
   },
   {
     user: 28,
@@ -269,7 +247,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Customer Success",
     workLocation: "Toronto, Canada",
     visa: "intraCompany",
-    scenario: "filed",
   },
   {
     user: 29,
@@ -281,7 +258,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Data & Analytics",
     workLocation: "Chicago, United States",
     visa: "h1b",
-    scenario: "approved",
   },
   {
     user: 30,
@@ -293,7 +269,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Marketing",
     workLocation: "Wellington, New Zealand",
     visa: "aewv",
-    scenario: "assessment",
   },
   {
     user: 31,
@@ -305,7 +280,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Sydney, Australia",
     visa: "skillsInDemand",
-    scenario: "preparation",
   },
   {
     user: 32,
@@ -317,7 +291,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Design",
     workLocation: "London, United Kingdom",
     visa: "skilledWorker",
-    scenario: "filed",
   },
   {
     user: 33,
@@ -329,7 +302,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Customer Success",
     workLocation: "Auckland, New Zealand",
     visa: "aewv",
-    scenario: "approved",
   },
   {
     user: 34,
@@ -341,7 +313,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Operations",
     workLocation: "Melbourne, Australia",
     visa: "skillsInDemand",
-    scenario: "assessment",
   },
   {
     user: 35,
@@ -353,7 +324,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Vancouver, Canada",
     visa: "intraCompany",
-    scenario: "preparation",
   },
   {
     user: 70,
@@ -365,7 +335,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Denver, United States",
     visa: "h1b",
-    scenario: "rfe",
     advisors: [3, 6],
   },
   {
@@ -378,7 +347,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Operations",
     workLocation: "Auckland, New Zealand",
     visa: "aewv",
-    scenario: "approved",
   },
   {
     user: 72,
@@ -390,7 +358,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Research",
     workLocation: "Boston, United States",
     visa: "h1b",
-    scenario: "approved",
     advisors: [6],
   },
   {
@@ -403,7 +370,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Brisbane, Australia",
     visa: "skillsInDemand",
-    scenario: "filed",
     advisors: [6],
   },
   {
@@ -416,7 +382,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Engineering",
     workLocation: "Seattle, United States",
     visa: "h1b",
-    scenario: "passportReview",
   },
   {
     user: 61,
@@ -428,7 +393,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Product",
     workLocation: "London, United Kingdom",
     visa: "skilledWorker",
-    scenario: "incompleteProfile",
   },
   {
     user: 62,
@@ -440,7 +404,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Data & Analytics",
     workLocation: "Melbourne, Australia",
     visa: "skillsInDemand",
-    scenario: "staleFiled",
   },
   {
     user: 63,
@@ -452,7 +415,6 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Operations",
     workLocation: "Toronto, Canada",
     visa: "intraCompany",
-    scenario: "staleIncomplete",
   },
   {
     user: 74,
@@ -464,6 +426,5 @@ export const demoBeneficiaries: DemoBeneficiary[] = [
     department: "Operations",
     workLocation: "Wellington, New Zealand",
     visa: "aewv",
-    scenario: "staleIncomplete",
   },
 ];

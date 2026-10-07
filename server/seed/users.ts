@@ -17,7 +17,7 @@ function beneficiaryUser(person: DemoBeneficiary) {
     companyId: company.id,
     fullName: person.name,
     email: `${emailName}@${company.emailDomain}`,
-    employeeId: `EMP-${person.company * 1000 + person.user}`,
+    employeeId: `EMP-${person.user}`,
     role: "beneficiary" as const,
   };
 }

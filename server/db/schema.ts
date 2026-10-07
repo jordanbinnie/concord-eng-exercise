@@ -128,6 +128,7 @@ export const cases = pgTable(
   "cases",
   {
     id: uuid("id").primaryKey().defaultRandom(),
+    reference: text("reference"),
     companyId: uuid("company_id")
       .notNull()
       .references(() => companies.id),
@@ -137,6 +138,7 @@ export const cases = pgTable(
     visaTypeId: uuid("visa_type_id").references(() => visaTypes.id),
     status: text("status"),
     filedAt: date("filed_at", { mode: "string" }),
+    approvedAt: date("approved_at", { mode: "string" }),
     expiresAt: date("expires_at", { mode: "string" }),
     updatedAt: timestamp("updated_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -145,9 +147,44 @@ export const cases = pgTable(
   },
   (table) => [
     index("cases_company_id_idx").on(table.companyId),
-    uniqueIndex("cases_beneficiary_user_id_unique").on(table.beneficiaryUserId),
+    index("cases_beneficiary_user_id_idx").on(table.beneficiaryUserId),
+    uniqueIndex("cases_reference_unique").on(table.reference),
     index("cases_visa_type_id_idx").on(table.visaTypeId),
   ]
+);
+
+export const caseTasks = pgTable(
+  "case_tasks",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    caseId: uuid("case_id")
+      .notNull()
+      .references(() => cases.id),
+    title: text("title").notNull(),
+    description: text("description").notNull(),
+    assignedToUserId: uuid("assigned_to_user_id").references(() => users.id),
+    // Internal team targets; authority deadlines require an explicitly recorded source.
+    targetDate: date("target_date", { mode: "string" }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [index("case_tasks_case_id_idx").on(table.caseId)]
+);
+
+export const caseEvents = pgTable(
+  "case_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    caseId: uuid("case_id")
+      .notNull()
+      .references(() => cases.id),
+    actorUserId: uuid("actor_user_id").references(() => users.id),
+    title: text("title").notNull(),
+    occurredAt: timestamp("occurred_at", { withTimezone: true }).notNull(),
+  },
+  (table) => [index("case_events_case_id_idx").on(table.caseId)]
 );
 
 export const information = pgTable(

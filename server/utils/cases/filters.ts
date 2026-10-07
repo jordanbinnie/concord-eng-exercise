@@ -5,6 +5,7 @@ import {
   inArray,
   isNull,
   lt,
+  not,
   or,
   type SQLWrapper,
   sql,
@@ -12,6 +13,7 @@ import {
 import {
   beneficiaryProfiles,
   cases,
+  caseTasks,
   companies,
   users,
   visaTypes,
@@ -34,6 +36,48 @@ function trimmed(field: SQLWrapper) {
 }
 
 export const normalizedStatus = sql<string>`lower(${trimmed(cases.status)})`;
+
+/** Filters UI stages while retaining the backend's specific RFE status. */
+export function caseStatusFilter(status: string) {
+  if (status === "all") {
+    return;
+  }
+  if (status === "in-progress") {
+    return inArray(normalizedStatus, ["in progress", "rfe issued"]);
+  }
+  return eq(normalizedStatus, status);
+}
+
+/** Mirrors monitoring groups in SQL, with expired recorded dates taking priority. */
+export function caseMonitoringFilter(now: Date) {
+  const today = now.toISOString().slice(0, 10);
+  const expired = sql<boolean>`coalesce(${or(
+    lt(cases.expiresAt, today),
+    lt(beneficiaryProfiles.passportExpiry, today)
+  )}, false)`;
+  const taskDate = sql<string>`(select ${caseTasks.targetDate} from ${caseTasks}
+    where ${caseTasks.caseId} = ${cases.id} and ${caseTasks.completedAt} is null
+    order by ${caseTasks.targetDate} asc nulls last, ${caseTasks.createdAt}, ${caseTasks.id} limit 1)`;
+  const hasTask = sql<boolean>`exists(select 1 from ${caseTasks} where ${caseTasks.caseId} = ${cases.id} and ${caseTasks.completedAt} is null)`;
+  const overdue = sql<boolean>`(${expired} or coalesce(${taskDate} < ${today}::date, false))`;
+  const review = sql<boolean>`coalesce(${caseAttentionFilter(now).condition}, false)`;
+  return {
+    overdue,
+    needsAction: and(not(overdue), or(review, hasTask)),
+    needsAttention: or(overdue, review, hasTask),
+    // A review without a recorded deadline must not borrow an unrelated expiry.
+    deadline: sql<string>`case
+      when ${overdue} then least(
+        case when ${cases.expiresAt} < ${today}::date then ${cases.expiresAt} end,
+        case when ${beneficiaryProfiles.passportExpiry} < ${today}::date then ${beneficiaryProfiles.passportExpiry} end,
+        case when ${taskDate} < ${today}::date then ${taskDate} end)
+      when ${hasTask} then ${taskDate}
+      when ${review} then case when ${normalizedStatus} != 'rfe issued'
+        and ${beneficiaryProfiles.passportExpiry} < ${cases.expiresAt}
+        then ${beneficiaryProfiles.passportExpiry} end
+      else coalesce(${cases.expiresAt}, ${beneficiaryProfiles.passportExpiry}) end`,
+  };
+}
 
 /** Mirrors the review rules in SQL so filtering happens before pagination, using the same cutoff and field list. */
 export function caseAttentionFilter(now: Date) {
@@ -92,7 +136,7 @@ export function caseSearchFilter(
   }
   const pattern = `%${search.replace(/[\\%_]/g, "\\$&")}%`;
   return ilike(
-    sql`concat_ws(' ', ${users.employeeId}, ${users.fullName}, ${users.email}, ${companies.name}, ${visaTypes.name}, ${cases.status}, ${cases.id}::text, ${attentionText})`,
+    sql`concat_ws(' ', ${users.employeeId}, ${users.fullName}, ${users.email}, ${companies.name}, ${visaTypes.name}, ${cases.status}, ${cases.reference}, ${cases.id}::text, ${attentionText})`,
     pattern
   );
 }

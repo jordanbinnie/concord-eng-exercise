@@ -1,8 +1,12 @@
 import { createDb } from "../db/client";
+import { demoBeneficiaries } from "./beneficiaries";
+import { casePlans } from "./case-plans";
 import { seedCases } from "./cases";
 import { seedCompanies } from "./companies";
+import { demoStaff } from "./data";
 import { seedProfiles } from "./profiles";
 import { seedUsers } from "./users";
+import { validateSeed } from "./validate";
 import { seedVisaTypes } from "./visa-types";
 
 type SeedResult =
@@ -24,6 +28,7 @@ export async function seed(
   }
   let connection: ReturnType<typeof createDb> | undefined;
   try {
+    validateSeed();
     connection = createDb(databaseUrl);
     await connection.db.transaction(async (tx) => {
       await seedCompanies(tx);
@@ -35,8 +40,7 @@ export async function seed(
     });
     return {
       success: true,
-      message:
-        "Demo seed ready: 41 users, 37 cases, 2 companies; 3 switchable identities.",
+      message: `Demo seed ready: ${demoBeneficiaries.length + demoStaff.length} users, ${casePlans.length} cases, 2 companies; readable references, internal tasks, and recorded events.`,
     };
   } catch {
     return {
